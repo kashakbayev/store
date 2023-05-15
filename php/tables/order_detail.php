@@ -92,4 +92,7 @@ class Order_detail {
         $this->comment = $comment;
     }
 }
+
+$ord_detail = new Order_detail();
+
 ?>

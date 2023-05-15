@@ -18,4 +18,7 @@ class Address1 {
         return $this->regionName;
     }
 }
+
+$address1 = new Address1();
+
 ?>

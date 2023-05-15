@@ -62,4 +62,7 @@ class Payment {
         $this->customerID = $customerID;
     }
 }
+
+$payment = new Payment();
+
 ?>

@@ -22,4 +22,7 @@ class Delivery {
         $this->deliveryCompany = $deliveryCompany;
     }
 }
+
+$delivery = new Delivery();
+
 ?>

@@ -22,4 +22,7 @@ class PaymentType {
         $this->name = $name;
     }
 }
+
+$pType = new PaymentType();
+
 ?>

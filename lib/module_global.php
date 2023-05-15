@@ -1,6 +1,5 @@
 <?php
 require $root."/php/tables/users.php";
-$user = new Users();
 
 function enter($obj) { 
     $root = $_SERVER['DOCUMENT_ROOT']."/store";
@@ -13,7 +12,7 @@ function enter($obj) {
     try {
         $res = selectAll("users", "email", $email); //запрашивается строка из базы данных с логином, введённым пользователем      
 
-        if ($res) //если нашлась строка, значит такой юзер существует в базе данных       
+        if ($res->fetch()) //если нашлась строка, значит такой юзер существует в базе данных       
 
         {           
             $row = $res->fetch();             

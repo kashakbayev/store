@@ -112,4 +112,7 @@ class Users {
         $this->img = $img;
     }
 }
+
+$user = new Users();
+
 ?>

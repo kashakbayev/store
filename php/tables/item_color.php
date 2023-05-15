@@ -22,4 +22,6 @@ class Item_color {
         $this->colorName = $colorName;
     }
 }
+
+$color = new Item_color();
 ?>

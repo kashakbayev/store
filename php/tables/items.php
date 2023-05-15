@@ -52,4 +52,7 @@ class Items {
         $this->price = $price;
     }
 }
+
+$item = new Items();
+
 ?>

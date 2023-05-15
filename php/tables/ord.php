@@ -32,4 +32,7 @@ class Ord {
         $this->date = $date;
     }
 }
+
+$order = new Ord();
+
 ?>

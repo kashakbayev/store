@@ -43,4 +43,7 @@ class Address2 {
         $this->postal_code = $postal_code;
     }
 }
+
+$address2 = new Address2();
+
 ?>

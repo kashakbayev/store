@@ -22,4 +22,7 @@ class Category {
         $this->catName = $catName;
     }
 }
+
+$cat = new Category();
+
 ?>
