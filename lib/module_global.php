@@ -3,63 +3,66 @@ require $root."/php/tables/users.php";
 
 function enter($obj) { 
     $root = $_SERVER['DOCUMENT_ROOT']."/store";
+    require $root."/php/tables/users.php";
     require $root."/php/crud.php";  
-    $error = array(); //массив для ошибок   
+    $error = ""; //массив для ошибок   
     
     $email = $obj->email;
     $pass = $obj->pass;
 
     try {
         $res = selectAll("users", "email", $email); //запрашивается строка из базы данных с логином, введённым пользователем      
-
+        
         if ($res->fetch()) //если нашлась строка, значит такой юзер существует в базе данных       
 
         {           
-            $row = $res->fetch();             
-            if (md5($pass) == $row['pass']) //сравнивается хэшированный пароль из базы данных с хэшированными паролем, введённым пользователем                        
+            while($row = $res->fetch())
+            {
+                if (md5($pass) == $row['pass']) //сравнивается хэшированный пароль из базы данных с хэшированными паролем, введённым пользователем                        
 
-            { 
-            //пишутся логин и хэшированный пароль в cookie, также создаётся переменная сессии
+                { 
+                //пишутся логин и хэшированный пароль в cookie, также создаётся переменная сессии
+                    session_start();
+                    
+                    $user->setUserID($row['userID']);
+                    $user->setFname($row['Fname']);
+                    $user->setLname($row['Lname']);
+                    $user->setBirthday($row['birthday']);
+                    $user->setAddress($row['address']);
+                    $user->setPhone($row['phone']);
+                    $user->setEmail($row['email']);
+                    $user->setPass($row['pass']);
+                    $user->setRole($row['role']);
+                    $user->setGender($row['gender']);
+                    $user->setImg($row['img']);
 
-                
-                $user->setUserID($row['userID']);
-                $user->setFname($row['Fname']);
-                $user->setLname($row['Lname']);
-                $user->setBirthday($row['birthday']);
-                $user->setAddress($row['address']);
-                $user->setPhone($row['phone']);
-                $user->setEmail($row['email']);
-                $user->setPass($row['pass']);
-                $user->setRole($row['role']);
-                $user->setGender($row['gender']);
-                $user->setImg($row['img']);
 
+                    setcookie ("login", $user->getEmail(), time() + 50000, "/");                         
+                    setcookie ("password", $user->getPass(), time() + 50000, "/");                    
+                    $_SESSION['id'] = $user->getUserID();   //записываем в сессию id пользователя               
 
-                setcookie ("login", $user->email, time() + 50000, "/");                         
-                setcookie ("password", md5($user->email.$user->pass), time() + 50000, "/");                    
-                $_SESSION['id'] = $user->getUserID();   //записываем в сессию id пользователя               
-
-                $id = $_SESSION['id'];          
-            }           
-            else //если пароли не совпали           
-            {               
-                $error['msg'] = "Incorrect email address or password";                                       
-                return $error;          
-            }       
+                    $id = $_SESSION['id']; 
+                    
+                }           
+                else //если пароли не совпали           
+                {               
+                    $error = "Incorrect email address or password";                                       
+                    return $error;
+                }
+            }             
+                   
         }       
         else //если такого пользователя не найдено в базе данных        
         {           
-            $error['msg'] = "There is no user with this email";           
-            return $error;      
+            $error = "There is no user with this email";           
+            return $error;
         }
 
 
     } catch(Exception $e) {
         $error['msg'] = "Database error: ".$e->getMessage();
     }
-    $conn = null;
     
-    return json_encode($error);
 }
 
 
@@ -168,20 +171,19 @@ function login() {
 
 
 function is_admin($id) { 
-
+    $root = $_SERVER['DOCUMENT_ROOT']."/store";
+    require $root."/php/crud.php";  
+    require $root."/lib/connect.php";
     try {
 
        $res = $conn->query("SELECT `role` FROM `users` WHERE `id` = '$id'");  
 
-        if ($res)  
-        {       
-            $role = $res->fetch();         
+          
+        $role = $res->fetch();         
 
-            if ($role == "admin") return true;       
-            else return false; 
-
-        }   
-        else return false;  
+        if ($role == "admin") return true;       
+        else return false; 
+ 
 
     } catch(Exception $e) {
         echo $e->getMessage();

@@ -14,8 +14,7 @@ $( document ).ready(function() {
                 type: "POST",
                 data: ({data: info, action: "in"}),
                 success: function(message) {
-                    const obj = JSON.parse(message);
-                    alert(message.msg);
+                    alert(message);
                 }
             });
         }
