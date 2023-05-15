@@ -56,9 +56,8 @@ function enter($obj) {
 
 
     } catch(Exception $e) {
-        echo $e->getMessage();
+        echo "Database error: ".$e->getMessage();
     }
-    $conn = null;
        
     
 
