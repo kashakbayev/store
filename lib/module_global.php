@@ -39,27 +39,27 @@ function enter($obj) {
                 setcookie ("password", md5($user->email.$user->pass), time() + 50000, "/");                    
                 $_SESSION['id'] = $user->getUserID();   //записываем в сессию id пользователя               
 
-                //$id = $_SESSION['id'];          
+                $id = $_SESSION['id'];          
             }           
             else //если пароли не совпали           
             {               
-                $error[] = "Incorrect email address or password";                                       
+                $error['msg'] = "Incorrect email address or password";                                       
                 return $error;          
             }       
         }       
         else //если такого пользователя не найдено в базе данных        
         {           
-            $error[] = "There is no user with this email";           
+            $error['msg'] = "There is no user with this email";           
             return $error;      
         }
 
 
     } catch(Exception $e) {
-        $error[] = "Database error: ".$e->getMessage();
+        $error['msg'] = "Database error: ".$e->getMessage();
     }
     $conn = null;
     
-    return $error
+    return json_encode($error);
 }
 
 
