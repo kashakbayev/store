@@ -14,7 +14,7 @@ $( document ).ready(function() {
                 type: "POST",
                 data: ({data: info, action: "in"}),
                 success: function(message) {
-                    alert(message);
+                    $('#msg').html(message);
                 }
             });
         }

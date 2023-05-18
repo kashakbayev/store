@@ -113,6 +113,4 @@ class Users {
     }
 }
 
-$user = new Users();
-
 ?>

@@ -21,7 +21,7 @@
             <div class="md-5 mt-md-4 pb-4">
 
               <h2 class="fw-bold mb-2 text-uppercase" id="text">Login</h2>
-              <p class="text-white-50 mb-5">Please enter your email and password!</p>
+              <p class="text-white-50 mb-5" id="msg">Please enter your email and password!</p>
 
               <div class="form-outline form-white mb-4">
                 <input type="email" id="email" class="form-control form-control-lg" />
